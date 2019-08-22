@@ -1,6 +1,6 @@
 /**
- * @license Copyright (c) 2003-2018, CKSource - Frederico Knabben. All rights reserved.
- * For licensing, see LICENSE.md.
+ * @license Copyright (c) 2003-2019, CKSource - Frederico Knabben. All rights reserved.
+ * For licensing, see LICENSE.md or https://ckeditor.com/legal/ckeditor-oss-license
  */
 
 'use strict';
@@ -16,16 +16,15 @@ const UglifyJsWebpackPlugin = require('uglifyjs-webpack-plugin');
 module.exports = {
 	devtool: 'source-map',
 	performance: { hints: false },
-	entry: {
-		"ckeditor": [require.resolve('@babel/runtime/regenerator/index.js'), path.resolve(__dirname, 'src', 'ckeditor.js')],
-		"ckeditor-extended": [require.resolve('@babel/runtime/regenerator/index.js'), path.resolve(__dirname, 'src', 'ckeditor-extended.js')]
-	},
+
+	entry: path.resolve(__dirname, 'src', 'ckeditor.js'),
+
 	output: {
 		// The name under which the editor will be exported.
 		library: 'ClassicEditor',
 
 		path: path.resolve(__dirname, 'build'),
-		filename: '[name].js',
+		filename: 'ckeditor.js',
 		libraryTarget: 'umd',
 		libraryExport: 'default'
 	},
@@ -59,17 +58,6 @@ module.exports = {
 
 	module: {
 		rules: [
-			{
-				test: /\.js$/,
-				use: [
-					{
-						loader: 'babel-loader',
-						options: {
-							presets: ['@babel/preset-env']
-						}
-					}
-				]
-			},
 			{
 				test: /\.svg$/,
 				use: ['raw-loader']
